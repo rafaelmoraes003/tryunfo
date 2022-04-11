@@ -14,6 +14,7 @@ class NumberInput extends React.Component {
           id={ number }
           value={ value }
           onChange={ onChange }
+          min="0"
         />
       </label>
     );
