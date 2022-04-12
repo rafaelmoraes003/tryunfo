@@ -53,10 +53,15 @@ class App extends React.Component {
     const { attr01, attr02, attr03 } = this.state;
     const { title, description, image, select } = this.state;
     this.setState({
-      cardsList: [
-        title, description, image, select,
-        attr01, attr02, attr03,
-      ],
+      cardsList: [{
+        name: title,
+        description,
+        image,
+        rarity: select,
+        attr01,
+        attr02,
+        attr03,
+      }],
     });
     this.setState({
       title: '',
@@ -80,6 +85,7 @@ class App extends React.Component {
       image,
       select,
       superTrunfo,
+      cardsList,
     } = this.state;
     return (
       <div>
@@ -95,6 +101,7 @@ class App extends React.Component {
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ this.disableBtn() }
           onSaveButtonClick={ this.saveCards }
+          boredLinter={ cardsList }
         />
         <Card
           cardName={ title }
