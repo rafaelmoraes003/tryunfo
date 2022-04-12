@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class NumberInput extends React.Component {
   render() {
-    const { testId, placeholder, number, value, onChange } = this.props;
+    const { testId, placeholder, number, value, onChange, name } = this.props;
     return (
       <label htmlFor={ number }>
         {`Atributo ${number}`}
@@ -14,6 +14,7 @@ class NumberInput extends React.Component {
           id={ number }
           value={ value }
           onChange={ onChange }
+          name={ name }
           min="0"
         />
       </label>
@@ -27,6 +28,7 @@ NumberInput.propTypes = {
   number: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default NumberInput;

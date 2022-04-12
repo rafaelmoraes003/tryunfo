@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class TextArea extends React.Component {
   render() {
-    const { title, testId, value, onChange } = this.props;
+    const { title, testId, value, onChange, name } = this.props;
     return (
       <label htmlFor={ testId }>
         { title }
@@ -12,6 +12,7 @@ class TextArea extends React.Component {
           id={ testId }
           value={ value }
           onChange={ onChange }
+          name={ name }
         />
       </label>
     );
@@ -23,6 +24,7 @@ TextArea.propTypes = {
   testId: PropTypes.string.isRequired,
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 export default TextArea;
