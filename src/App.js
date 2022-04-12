@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import './index.css';
 
 class App extends React.Component {
   constructor() {
@@ -51,7 +52,7 @@ class App extends React.Component {
 
   saveCards = () => {
     const { attr01, attr02, attr03 } = this.state;
-    const { title, description, image, select } = this.state;
+    const { title, description, image, select, superTrunfo } = this.state;
     this.setState({
       cardsList: [{
         name: title,
@@ -61,6 +62,7 @@ class App extends React.Component {
         attr01,
         attr02,
         attr03,
+        superTrunfo,
       }],
     });
     this.setState({
@@ -73,6 +75,12 @@ class App extends React.Component {
       select: 'normal',
       superTrunfo: false,
     });
+  }
+
+  haveTrunfo = () => {
+    const { cardsList } = this.state;
+    const myTrunfo = cardsList.some((elemento) => (elemento.superTrunfo));
+    return myTrunfo;
   }
 
   render() {
@@ -101,7 +109,8 @@ class App extends React.Component {
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ this.disableBtn() }
           onSaveButtonClick={ this.saveCards }
-          boredLinter={ cardsList }
+          hasTrunfo={ this.haveTrunfo() }
+          boredLinter={ cardsList } // --------> prop inútil, usada apenas para resolver o linter.
         />
         <Card
           cardName={ title }

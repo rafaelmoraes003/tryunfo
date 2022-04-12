@@ -18,7 +18,7 @@ class Form extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
@@ -26,7 +26,7 @@ class Form extends React.Component {
 
     return (
       <form>
-        <h1>Tryunfo</h1>
+        <h1>Adicionar nova carta</h1>
 
         <TextInput
           title="Nome"
@@ -90,6 +90,7 @@ class Form extends React.Component {
           testId="trunfo-input"
           checked={ cardTrunfo }
           onChange={ onInputChange }
+          trunfo={ hasTrunfo }
           name="superTrunfo"
         />
 
@@ -113,7 +114,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  // hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
