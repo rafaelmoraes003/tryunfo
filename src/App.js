@@ -14,34 +14,8 @@ class App extends React.Component {
       image: '',
       select: '',
       superTrunfo: false,
+      cardsList: [],
     };
-  }
-
-  disableBtn = () => {
-    const { attr01, attr02, attr03 } = this.state;
-    const { title, description, image, select } = this.state;
-    const max = 90;
-    const maxSum = 210;
-
-    if (Number(attr01) > max || Number(attr01) < 0) {
-      return true;
-    }
-    if (Number(attr02) > max || Number(attr02) < 0) {
-      return true;
-    }
-    if (Number(attr03) > max || Number(attr03) < 0) {
-      return true;
-    }
-    if ((Number(attr01) + Number(attr02) + Number(attr03)) > maxSum) {
-      return true;
-    }
-    if ((
-      title.length === 0
-      || description.length === 0
-      || image.length === 0
-      || select.length === 0)) {
-      return true;
-    }
   }
 
   handleChange = ({ target }) => {
@@ -51,6 +25,50 @@ class App extends React.Component {
       [name]: value,
     });
   };
+
+  disableBtn = () => {
+    const { attr01, attr02, attr03 } = this.state;
+    const { title, description, image, select } = this.state;
+    const max = 90;
+    const maxSum = 210;
+
+    if ((
+      Number(attr01) > max // --------------------------------------- se atributo 1 é maior que 90
+      || Number(attr02) > max // ------------------------------------ se atributo 2 é maior que 90
+      || Number(attr03) > max // ------------------------------------ se atributo 3 é maior que 90
+      || Number(attr01) < 0 // -------------------------------------- se atributo 1 é menor que 0
+      || Number(attr02) < 0 // -------------------------------------- se atributo 2 é menor que 0
+      || Number(attr03) < 0 // -------------------------------------- se atributo 3 é menor que 0
+      || ((Number(attr01) + Number(attr02) + Number(attr03)) > maxSum) // se soma de atributos é menor que 210
+      || title.length === 0 // -------------------------------------- se o título não está vazio
+      || description.length === 0 // -------------------------------- se descrição não está vazia
+      || image.length === 0 // -------------------------------------- se imagem não está vazia
+      || select.length === 0 // ------------------------------------- se select não está vazio
+    )) {
+      return true;
+    }
+  }
+
+  saveCards = () => {
+    const { attr01, attr02, attr03 } = this.state;
+    const { title, description, image, select } = this.state;
+    this.setState({
+      cardsList: [
+        title, description, image, select,
+        attr01, attr02, attr03,
+      ],
+    });
+    this.setState({
+      title: '',
+      description: '',
+      attr01: 0,
+      attr02: 0,
+      attr03: 0,
+      image: '',
+      select: 'normal',
+      superTrunfo: false,
+    });
+  }
 
   render() {
     const {
@@ -66,8 +84,17 @@ class App extends React.Component {
     return (
       <div>
         <Form
+          cardName={ title }
+          cardDescription={ description }
+          cardAttr1={ attr01 }
+          cardAttr2={ attr02 }
+          cardAttr3={ attr03 }
+          cardImage={ image }
+          cardRare={ select }
+          cardTrunfo={ superTrunfo }
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ this.disableBtn() }
+          onSaveButtonClick={ this.saveCards }
         />
         <Card
           cardName={ title }
