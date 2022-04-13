@@ -7,14 +7,14 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      title: '',
-      description: '',
-      attr01: 0,
-      attr02: 0,
-      attr03: 0,
-      image: '',
-      select: '',
-      superTrunfo: false,
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
       cardsList: [],
     };
   }
@@ -28,100 +28,118 @@ class App extends React.Component {
   };
 
   disableBtn = () => {
-    const { attr01, attr02, attr03 } = this.state;
-    const { title, description, image, select } = this.state;
+    const { cardAttr1, cardAttr2, cardAttr3 } = this.state;
+    const { cardName, cardDescription, cardImage, cardRare } = this.state;
     const max = 90;
     const maxSum = 210;
 
     if ((
-      Number(attr01) > max // --------------------------------------- se atributo 1 é maior que 90
-      || Number(attr02) > max // ------------------------------------ se atributo 2 é maior que 90
-      || Number(attr03) > max // ------------------------------------ se atributo 3 é maior que 90
-      || Number(attr01) < 0 // -------------------------------------- se atributo 1 é menor que 0
-      || Number(attr02) < 0 // -------------------------------------- se atributo 2 é menor que 0
-      || Number(attr03) < 0 // -------------------------------------- se atributo 3 é menor que 0
-      || ((Number(attr01) + Number(attr02) + Number(attr03)) > maxSum) // se soma de atributos é menor que 210
-      || title.length === 0 // -------------------------------------- se o título não está vazio
-      || description.length === 0 // -------------------------------- se descrição não está vazia
-      || image.length === 0 // -------------------------------------- se imagem não está vazia
-      || select.length === 0 // ------------------------------------- se select não está vazio
+      Number(cardAttr1) > max // --------------------------------------- se atributo 1 é maior que 90
+      || Number(cardAttr2) > max // ------------------------------------ se atributo 2 é maior que 90
+      || Number(cardAttr3) > max // ------------------------------------ se atributo 3 é maior que 90
+      || Number(cardAttr1) < 0 // -------------------------------------- se atributo 1 é menor que 0
+      || Number(cardAttr2) < 0 // -------------------------------------- se atributo 2 é menor que 0
+      || Number(cardAttr3) < 0 // -------------------------------------- se atributo 3 é menor que 0
+      || ((Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3)) > maxSum) // se soma de atributos é menor que 210
+      || cardName.length === 0 // -------------------------------------- se o título não está vazio
+      || cardDescription.length === 0 // -------------------------------- se descrição não está vazia
+      || cardImage.length === 0 // -------------------------------------- se imagem não está vazia
+      || cardRare.length === 0 // ------------------------------------- se select não está vazio
     )) {
       return true;
     }
   }
 
   saveCards = () => {
-    const { attr01, attr02, attr03 } = this.state;
-    const { title, description, image, select, superTrunfo } = this.state;
-    this.setState({
-      cardsList: [{
-        name: title,
-        description,
-        image,
-        rarity: select,
-        attr01,
-        attr02,
-        attr03,
-        superTrunfo,
+    const { cardAttr1, cardAttr2, cardAttr3 } = this.state;
+    const { cardName, cardDescription, cardImage, cardRare, cardTrunfo } = this.state;
+
+    this.setState((prev) => ({
+      cardsList: [...prev.cardsList, {
+        cardName,
+        cardDescription,
+        cardAttr1,
+        cardAttr2,
+        cardAttr3,
+        cardRare,
+        cardImage,
+        cardTrunfo,
       }],
-    });
+    }));
+
     this.setState({
-      title: '',
-      description: '',
-      attr01: 0,
-      attr02: 0,
-      attr03: 0,
-      image: '',
-      select: 'normal',
-      superTrunfo: false,
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
     });
   }
 
   haveTrunfo = () => {
     const { cardsList } = this.state;
-    const myTrunfo = cardsList.some((elemento) => (elemento.superTrunfo));
+    const myTrunfo = cardsList.some((elemento) => (elemento.cardTrunfo));
     return myTrunfo;
   }
 
   render() {
     const {
-      title,
-      description,
-      attr01,
-      attr02,
-      attr03,
-      image,
-      select,
-      superTrunfo,
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
       cardsList,
     } = this.state;
     return (
       <div>
         <Form
-          cardName={ title }
-          cardDescription={ description }
-          cardAttr1={ attr01 }
-          cardAttr2={ attr02 }
-          cardAttr3={ attr03 }
-          cardImage={ image }
-          cardRare={ select }
-          cardTrunfo={ superTrunfo }
+          cardName={ cardName }
+          cardDescription={ cardDescription }
+          cardAttr1={ cardAttr1 }
+          cardAttr2={ cardAttr2 }
+          cardAttr3={ cardAttr3 }
+          cardImage={ cardImage }
+          cardRare={ cardRare }
+          cardTrunfo={ cardTrunfo }
           onInputChange={ this.handleChange }
           isSaveButtonDisabled={ this.disableBtn() }
           onSaveButtonClick={ this.saveCards }
           hasTrunfo={ this.haveTrunfo() }
           boredLinter={ cardsList } // --------> prop inútil, usada apenas para resolver o linter.
         />
-        <Card
-          cardName={ title }
-          cardDescription={ description }
-          cardAttr1={ attr01 }
-          cardAttr2={ attr02 }
-          cardAttr3={ attr03 }
-          cardImage={ image }
-          cardRare={ select }
-          cardTrunfo={ superTrunfo }
-        />
+        <div>
+          <h2>Preview</h2>
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
+        </div>
+        {cardsList.length > 0 && cardsList.map((elemento) => (
+          <Card
+            key={ elemento.cardName }
+            cardName={ elemento.cardName }
+            cardDescription={ elemento.cardDescription }
+            cardAttr1={ elemento.cardAttr1 }
+            cardAttr2={ elemento.cardAttr2 }
+            cardAttr3={ elemento.cardAttr3 }
+            cardImage={ elemento.cardImage }
+            cardRare={ elemento.cardRare }
+            cardTrunfo={ elemento.cardTrunfo }
+          />
+        )) }
       </div>
     );
   }

@@ -33,7 +33,7 @@ class Form extends React.Component {
           testId="name-input"
           value={ cardName }
           onChange={ onInputChange }
-          name="title"
+          name="cardName"
         />
 
         <TextArea
@@ -41,7 +41,7 @@ class Form extends React.Component {
           testId="description-input"
           value={ cardDescription }
           onChange={ onInputChange }
-          name="description"
+          name="cardDescription"
         />
 
         <NumberInput
@@ -50,7 +50,7 @@ class Form extends React.Component {
           number="1"
           value={ cardAttr1 }
           onChange={ onInputChange }
-          name="attr01"
+          name="cardAttr1"
         />
 
         <NumberInput
@@ -59,7 +59,7 @@ class Form extends React.Component {
           number="2"
           value={ cardAttr2 }
           onChange={ onInputChange }
-          name="attr02"
+          name="cardAttr2"
         />
 
         <NumberInput
@@ -68,7 +68,7 @@ class Form extends React.Component {
           number="3"
           value={ cardAttr3 }
           onChange={ onInputChange }
-          name="attr03"
+          name="cardAttr3"
         />
 
         <TextInput
@@ -76,14 +76,14 @@ class Form extends React.Component {
           title="Imagem"
           value={ cardImage }
           onChange={ onInputChange }
-          name="image"
+          name="cardImage"
         />
 
         <SelectInput
           testId="rare-input"
           value={ cardRare }
           onChange={ onInputChange }
-          name="select"
+          name="cardRare"
         />
 
         <Checkbox
@@ -91,7 +91,7 @@ class Form extends React.Component {
           checked={ cardTrunfo }
           onChange={ onInputChange }
           trunfo={ hasTrunfo }
-          name="superTrunfo"
+          name="cardTrunfo"
         />
 
         <SaveButton
