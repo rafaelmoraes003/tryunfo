@@ -12,6 +12,8 @@ class Card extends React.Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      shouldHaveDeleteButton,
+      onClick,
     } = this.props;
     return (
       <div className="card-div">
@@ -23,6 +25,15 @@ class Card extends React.Component {
         <div data-testid="attr3-card">{`Attr03: ${cardAttr3}`}</div>
         <div data-testid="rare-card">{`Raridade: ${cardRare}`}</div>
         { cardTrunfo ? <div data-testid="trunfo-card">Super Trunfo</div> : ''}
+        { shouldHaveDeleteButton && (
+          <button
+            type="button"
+            name={ cardName }
+            onClick={ onClick }
+            data-testid="delete-button"
+          >
+            Excluir
+          </button>) }
       </div>
     );
   }
@@ -37,6 +48,8 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  shouldHaveDeleteButton: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Card;

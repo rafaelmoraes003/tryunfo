@@ -55,7 +55,7 @@ class App extends React.Component {
     const { cardName, cardDescription, cardImage, cardRare, cardTrunfo } = this.state;
 
     this.setState((prev) => ({
-      cardsList: [...prev.cardsList, {
+      cardsList: [...prev.cardsList, { // cardsList é ACUMULATIVO!!!
         cardName,
         cardDescription,
         cardAttr1,
@@ -83,6 +83,15 @@ class App extends React.Component {
     const { cardsList } = this.state;
     const myTrunfo = cardsList.some((elemento) => (elemento.cardTrunfo));
     return myTrunfo;
+  }
+
+  removeCard = ({ target }) => {
+    this.setState((prevState) => ({
+      cardsList: prevState.cardsList.filter((elemento) => {
+        const remove = elemento.cardName !== target.name;
+        return remove;
+      }),
+    }));
   }
 
   render() {
@@ -138,6 +147,8 @@ class App extends React.Component {
             cardImage={ elemento.cardImage }
             cardRare={ elemento.cardRare }
             cardTrunfo={ elemento.cardTrunfo }
+            onClick={ this.removeCard }
+            shouldHaveDeleteButton
           />
         )) }
       </div>
