@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import TextInput from './components/TextInput';
 import './index.css';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       cardsList: [],
+      filterName: '',
     };
   }
 
@@ -94,6 +96,20 @@ class App extends React.Component {
     }));
   }
 
+  filterNames = ({ target }) => {
+    const { filterName } = this.state;
+    this.setState({
+      filterName: target.value,
+    }, () => {
+      this.setState((prev) => ({
+        cardsList: prev.cardsList.filter((elemento) => {
+          const name = elemento.cardName.includes(filterName);
+          return name;
+        }),
+      }));
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -107,25 +123,9 @@ class App extends React.Component {
       cardsList,
     } = this.state;
     return (
-      <div>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          onInputChange={ this.handleChange }
-          isSaveButtonDisabled={ this.disableBtn() }
-          onSaveButtonClick={ this.saveCards }
-          hasTrunfo={ this.haveTrunfo() }
-          boredLinter={ cardsList } // --------> prop inútil, usada apenas para resolver o linter.
-        />
+      <>
         <div>
-          <h2>Preview</h2>
-          <Card
+          <Form
             cardName={ cardName }
             cardDescription={ cardDescription }
             cardAttr1={ cardAttr1 }
@@ -134,24 +134,55 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
+            onInputChange={ this.handleChange }
+            isSaveButtonDisabled={ this.disableBtn() }
+            onSaveButtonClick={ this.saveCards }
+            hasTrunfo={ this.haveTrunfo() }
+            boredLinter={ cardsList } // --------> prop inútil, usada apenas para resolver o linter.
           />
+          <div>
+            <h2>Preview</h2>
+            <Card
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+            />
+          </div>
         </div>
-        {cardsList.length > 0 && cardsList.map((elemento) => (
-          <Card
-            key={ elemento.cardName }
-            cardName={ elemento.cardName }
-            cardDescription={ elemento.cardDescription }
-            cardAttr1={ elemento.cardAttr1 }
-            cardAttr2={ elemento.cardAttr2 }
-            cardAttr3={ elemento.cardAttr3 }
-            cardImage={ elemento.cardImage }
-            cardRare={ elemento.cardRare }
-            cardTrunfo={ elemento.cardTrunfo }
-            onClick={ this.removeCard }
-            shouldHaveDeleteButton
+        <div>
+
+          <h2>Filtros de busca</h2>
+
+          <TextInput
+            title="Nome da carta"
+            testId="name-filter"
+            name="filterName"
+            onChange={ this.filterNames }
           />
-        )) }
-      </div>
+
+          {cardsList.length > 0 && cardsList.map((elemento) => (
+            <Card
+              key={ elemento.cardName }
+              cardName={ elemento.cardName }
+              cardDescription={ elemento.cardDescription }
+              cardAttr1={ elemento.cardAttr1 }
+              cardAttr2={ elemento.cardAttr2 }
+              cardAttr3={ elemento.cardAttr3 }
+              cardImage={ elemento.cardImage }
+              cardRare={ elemento.cardRare }
+              cardTrunfo={ elemento.cardTrunfo }
+              onClick={ this.removeCard }
+              shouldHaveDeleteButton
+            />
+          )) }
+
+        </div>
+      </>
     );
   }
 }
