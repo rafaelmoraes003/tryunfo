@@ -2,6 +2,7 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 import TextInput from './components/TextInput';
+import SelectInput from './components/SelectInput';
 import './index.css';
 
 class App extends React.Component {
@@ -18,6 +19,7 @@ class App extends React.Component {
       cardTrunfo: false,
       cardsList: [],
       filterName: '',
+      filterRarity: '',
     };
   }
 
@@ -97,16 +99,33 @@ class App extends React.Component {
   }
 
   filterNames = ({ target }) => {
-    const { filterName } = this.state;
     this.setState({
       filterName: target.value,
     }, () => {
+      const { filterName } = this.state;
       this.setState((prev) => ({
         cardsList: prev.cardsList.filter((elemento) => {
           const name = elemento.cardName.includes(filterName);
           return name;
         }),
       }));
+    });
+  }
+
+  filterRare = ({ target }) => {
+    this.setState({
+      filterRarity: target.value,
+    }, () => {
+      const { filterRarity } = this.state;
+      if (filterRarity === 'todas') {
+        this.setState((prev) => ({
+          cardsList: prev.cardsList,
+        }));
+      } else {
+        this.setState((prev) => ({
+          cardsList: prev.cardsList.filter((elem) => elem.cardRare === filterRarity),
+        }));
+      }
     });
   }
 
@@ -163,6 +182,13 @@ class App extends React.Component {
             testId="name-filter"
             name="filterName"
             onChange={ this.filterNames }
+          />
+
+          <SelectInput
+            testId="rare-filter"
+            all
+            name="filterRarity"
+            onChange={ this.filterRare }
           />
 
           {cardsList.length > 0 && cardsList.map((elemento) => (
