@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class SelectInput extends React.Component {
   render() {
-    const { testId, value, onChange, name, all } = this.props;
+    const { testId, value, onChange, name, disabled, all } = this.props;
     return (
       <label htmlFor="raridade">
         Raridade:
@@ -13,6 +13,7 @@ class SelectInput extends React.Component {
           value={ value }
           onChange={ onChange }
           name={ name }
+          disabled={ disabled }
         >
           {all && (
             <>
@@ -40,6 +41,7 @@ SelectInput.propTypes = {
   value: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
   all: PropTypes.bool.isRequired,
 };
 

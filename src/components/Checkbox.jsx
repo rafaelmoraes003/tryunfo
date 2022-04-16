@@ -32,17 +32,3 @@ Checkbox.propTypes = {
 };
 
 export default Checkbox;
-
-// (trunfo === true)
-//         ? <p>Você já tem um Super Trunfo em seu baralho</p>
-//   : <label htmlFor={ testId }>
-//   Super Trybe Trunfo
-//   <input
-//     type="checkbox"
-//     data-testid={ testId }
-//     id={ testId }
-//     checked={ checked }
-//     onChange={ onChange }
-//     name={ name }
-//   />
-// </label>

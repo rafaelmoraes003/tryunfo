@@ -3,6 +3,7 @@ import Form from './components/Form';
 import Card from './components/Card';
 import TextInput from './components/TextInput';
 import SelectInput from './components/SelectInput';
+import Checkbox from './components/Checkbox';
 import './index.css';
 
 class App extends React.Component {
@@ -20,6 +21,7 @@ class App extends React.Component {
       cardsList: [],
       filterName: '',
       filterRarity: '',
+      filterTrunfo: false,
     };
   }
 
@@ -129,6 +131,24 @@ class App extends React.Component {
     });
   }
 
+  shouldBeDisabled = () => {
+    const { filterTrunfo } = this.state;
+    if (filterTrunfo) {
+      return true;
+    }
+  }
+
+  filterTrunfo = ({ target }) => {
+    this.setState({
+      filterTrunfo: target.checked,
+    }, () => {
+      const { filterTrunfo } = this.state;
+      this.setState((prev) => ({
+        cardsList: prev.cardsList.filter((elem) => elem.cardTrunfo === filterTrunfo),
+      }));
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -182,6 +202,7 @@ class App extends React.Component {
             testId="name-filter"
             name="filterName"
             onChange={ this.filterNames }
+            disabled={ this.shouldBeDisabled() }
           />
 
           <SelectInput
@@ -189,6 +210,13 @@ class App extends React.Component {
             all
             name="filterRarity"
             onChange={ this.filterRare }
+            disabled={ this.shouldBeDisabled() }
+          />
+
+          <Checkbox
+            testId="trunfo-filter"
+            name="filterTrunfo"
+            onChange={ this.filterTrunfo }
           />
 
           {cardsList.length > 0 && cardsList.map((elemento) => (
