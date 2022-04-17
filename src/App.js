@@ -223,7 +223,7 @@ class App extends React.Component {
             />
 
           </div>
-          <div>
+          <div className="my-cards-div">
             {filteredList.length > 0 && filteredList.map((elemento) => (
               <Card
                 key={ elemento.cardName }

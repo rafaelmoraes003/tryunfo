@@ -17,6 +17,7 @@ class SelectInput extends React.Component {
         >
           {all && (
             <>
+              <option value="" disabled selected>Select Rarity</option>
               <option value="todas">Todas</option>
               <option value="normal">Normal</option>
               <option value="raro">Raro</option>
@@ -25,6 +26,7 @@ class SelectInput extends React.Component {
           )}
           {!all && (
             <>
+              <option value="" disabled selected>Select Rarity</option>
               <option value="normal">Normal</option>
               <option value="raro">Raro</option>
               <option value="muito raro">Muito raro</option>

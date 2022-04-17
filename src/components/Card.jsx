@@ -20,14 +20,33 @@ class Card extends React.Component {
       <>
         {text && <h2>Preview</h2>}
         <div className="card-div">
-          <h1 data-testid="name-card">{ cardName }</h1>
-          <img src={ cardImage } alt={ cardName } data-testid="image-card" />
-          <div data-testid="description-card">{ cardDescription }</div>
-          <div data-testid="attr1-card">{`Attr01: ${cardAttr1}`}</div>
-          <div data-testid="attr2-card">{`Attr02: ${cardAttr2}`}</div>
-          <div data-testid="attr3-card">{`Attr03: ${cardAttr3}`}</div>
-          <div data-testid="rare-card">{`Raridade: ${cardRare}`}</div>
-          { cardTrunfo ? <div data-testid="trunfo-card">Super Trunfo</div> : ''}
+          <h1 className="name-div" data-testid="name-card">{ cardName }</h1>
+
+          <div className="image-div">
+            <img src={ cardImage } alt={ cardName } data-testid="image-card" />
+          </div>
+
+          <div className="description-div">
+            <div data-testid="description-card">{ cardDescription }</div>
+          </div>
+
+          <div className="attr-div">
+            <div data-testid="attr1-card">{`Attr01:.................. ${cardAttr1}`}</div>
+            <div data-testid="attr2-card">{`Attr02:.................. ${cardAttr2}`}</div>
+            <div data-testid="attr3-card">{`Attr03:.................. ${cardAttr3}`}</div>
+          </div>
+
+          <div
+            className="rare-div"
+            data-testid="rare-card"
+          >
+            {`Raridade: ${cardRare}`}
+          </div>
+          {
+            (cardTrunfo)
+              ? <div className="trunfo-div" data-testid="trunfo-card">Super Trunfo</div>
+              : ''
+          }
           { shouldHaveDeleteButton && (
             <button
               type="button"
