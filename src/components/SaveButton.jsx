@@ -10,6 +10,7 @@ class SaveButton extends React.Component {
         data-testid={ testId }
         disabled={ disabled }
         onClick={ onClick }
+        className="btn btn-primary"
       >
         Salvar
       </button>

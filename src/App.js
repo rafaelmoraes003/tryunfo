@@ -19,8 +19,7 @@ class App extends React.Component {
       cardRare: '',
       cardTrunfo: false,
       cardsList: [],
-      filterName: '',
-      filterRarity: '',
+      filteredList: [],
       filterTrunfo: false,
     };
   }
@@ -38,7 +37,6 @@ class App extends React.Component {
     const { cardName, cardDescription, cardImage, cardRare } = this.state;
     const max = 90;
     const maxSum = 210;
-
     if ((
       Number(cardAttr1) > max // --------------------------------------- se atributo 1 é maior que 90
       || Number(cardAttr2) > max // ------------------------------------ se atributo 2 é maior que 90
@@ -73,6 +71,10 @@ class App extends React.Component {
       }],
     }));
 
+    this.setState((prev) => ({
+      filteredList: prev.cardsList,
+    }));
+
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -98,37 +100,33 @@ class App extends React.Component {
         return remove;
       }),
     }));
+
+    this.setState((prev) => ({
+      filteredList: prev.cardsList,
+    }));
   }
 
   filterNames = ({ target }) => {
-    this.setState({
-      filterName: target.value,
-    }, () => {
-      const { filterName } = this.state;
-      this.setState((prev) => ({
-        cardsList: prev.cardsList.filter((elemento) => {
-          const name = elemento.cardName.includes(filterName);
-          return name;
-        }),
-      }));
-    });
+    const { cardsList } = this.state;
+    this.setState(() => ({
+      filteredList: cardsList.filter((elemento) => {
+        const name = elemento.cardName.includes(target.value);
+        return name;
+      }),
+    }));
   }
 
   filterRare = ({ target }) => {
-    this.setState({
-      filterRarity: target.value,
-    }, () => {
-      const { filterRarity } = this.state;
-      if (filterRarity === 'todas') {
-        this.setState((prev) => ({
-          cardsList: prev.cardsList,
-        }));
-      } else {
-        this.setState((prev) => ({
-          cardsList: prev.cardsList.filter((elem) => elem.cardRare === filterRarity),
-        }));
-      }
-    });
+    const { cardsList } = this.state;
+    if (target.value === 'todas') {
+      this.setState({
+        filteredList: cardsList,
+      });
+    } else {
+      this.setState({
+        filteredList: cardsList.filter((elem) => elem.cardRare === target.value),
+      });
+    }
   }
 
   shouldBeDisabled = () => {
@@ -139,13 +137,20 @@ class App extends React.Component {
   }
 
   filterTrunfo = ({ target }) => {
+    const { cardsList } = this.state;
     this.setState({
       filterTrunfo: target.checked,
     }, () => {
       const { filterTrunfo } = this.state;
-      this.setState((prev) => ({
-        cardsList: prev.cardsList.filter((elem) => elem.cardTrunfo === filterTrunfo),
-      }));
+      if (filterTrunfo) {
+        this.setState({
+          filteredList: cardsList.filter((elem) => elem.cardTrunfo === filterTrunfo),
+        });
+      } else {
+        this.setState({
+          filteredList: cardsList,
+        });
+      }
     });
   }
 
@@ -160,6 +165,7 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
       cardsList,
+      filteredList,
     } = this.state;
     return (
       <>
@@ -179,8 +185,7 @@ class App extends React.Component {
             hasTrunfo={ this.haveTrunfo() }
             boredLinter={ cardsList } // --------> prop inútil, usada apenas para resolver o linter.
           />
-          <div>
-            <h2>Preview</h2>
+          <div className="preview">
             <Card
               cardName={ cardName }
               cardDescription={ cardDescription }
@@ -190,51 +195,51 @@ class App extends React.Component {
               cardImage={ cardImage }
               cardRare={ cardRare }
               cardTrunfo={ cardTrunfo }
+              text
             />
           </div>
         </div>
         <div>
-
-          <h2>Filtros de busca</h2>
-
-          <TextInput
-            title="Nome da carta"
-            testId="name-filter"
-            name="filterName"
-            onChange={ this.filterNames }
-            disabled={ this.shouldBeDisabled() }
-          />
-
-          <SelectInput
-            testId="rare-filter"
-            all
-            name="filterRarity"
-            onChange={ this.filterRare }
-            disabled={ this.shouldBeDisabled() }
-          />
-
-          <Checkbox
-            testId="trunfo-filter"
-            name="filterTrunfo"
-            onChange={ this.filterTrunfo }
-          />
-
-          {cardsList.length > 0 && cardsList.map((elemento) => (
-            <Card
-              key={ elemento.cardName }
-              cardName={ elemento.cardName }
-              cardDescription={ elemento.cardDescription }
-              cardAttr1={ elemento.cardAttr1 }
-              cardAttr2={ elemento.cardAttr2 }
-              cardAttr3={ elemento.cardAttr3 }
-              cardImage={ elemento.cardImage }
-              cardRare={ elemento.cardRare }
-              cardTrunfo={ elemento.cardTrunfo }
-              onClick={ this.removeCard }
-              shouldHaveDeleteButton
+          <div>
+            <h2>Filtros de busca</h2>
+            <TextInput
+              title="Nome da carta"
+              testId="name-filter"
+              name="filterName"
+              onChange={ this.filterNames }
+              disabled={ this.shouldBeDisabled() }
             />
-          )) }
+            <SelectInput
+              testId="rare-filter"
+              all
+              name="filterRarity"
+              onChange={ this.filterRare }
+              disabled={ this.shouldBeDisabled() }
+            />
+            <Checkbox
+              testId="trunfo-filter"
+              name="filterTrunfo"
+              onChange={ this.filterTrunfo }
+            />
 
+          </div>
+          <div>
+            {filteredList.length > 0 && filteredList.map((elemento) => (
+              <Card
+                key={ elemento.cardName }
+                cardName={ elemento.cardName }
+                cardDescription={ elemento.cardDescription }
+                cardAttr1={ elemento.cardAttr1 }
+                cardAttr2={ elemento.cardAttr2 }
+                cardAttr3={ elemento.cardAttr3 }
+                cardImage={ elemento.cardImage }
+                cardRare={ elemento.cardRare }
+                cardTrunfo={ elemento.cardTrunfo }
+                onClick={ this.removeCard }
+                shouldHaveDeleteButton
+              />
+            )) }
+          </div>
         </div>
       </>
     );
