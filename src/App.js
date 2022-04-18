@@ -200,8 +200,8 @@ class App extends React.Component {
           </div>
         </div>
         <div>
-          <div>
-            <h2>Filtros de busca</h2>
+          <div className="filter-div">
+            <h2>Filtros de busca:</h2>
             <TextInput
               title="Nome da carta"
               testId="name-filter"

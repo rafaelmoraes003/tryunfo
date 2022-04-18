@@ -17,25 +17,21 @@ class Card extends React.Component {
       text,
     } = this.props;
     return (
-      <>
+      <div className="card-container">
         {text && <h2>Preview</h2>}
         <div className="card-div">
           <h1 className="name-div" data-testid="name-card">{ cardName }</h1>
-
           <div className="image-div">
             <img src={ cardImage } alt={ cardName } data-testid="image-card" />
           </div>
-
           <div className="description-div">
             <div data-testid="description-card">{ cardDescription }</div>
           </div>
-
           <div className="attr-div">
             <div data-testid="attr1-card">{`Attr01:.................. ${cardAttr1}`}</div>
             <div data-testid="attr2-card">{`Attr02:.................. ${cardAttr2}`}</div>
             <div data-testid="attr3-card">{`Attr03:.................. ${cardAttr3}`}</div>
           </div>
-
           <div
             className="rare-div"
             data-testid="rare-card"
@@ -47,17 +43,18 @@ class Card extends React.Component {
               ? <div className="trunfo-div" data-testid="trunfo-card">Super Trunfo</div>
               : ''
           }
-          { shouldHaveDeleteButton && (
-            <button
-              type="button"
-              name={ cardName }
-              onClick={ onClick }
-              data-testid="delete-button"
-            >
-              Excluir
-            </button>) }
         </div>
-      </>
+        { shouldHaveDeleteButton && (
+          <button
+            type="button"
+            name={ cardName }
+            onClick={ onClick }
+            data-testid="delete-button"
+            className="btn btn-danger"
+          >
+            Excluir
+          </button>) }
+      </div>
     );
   }
 }
