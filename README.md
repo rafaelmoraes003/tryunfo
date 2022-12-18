@@ -21,6 +21,6 @@
 
 ###
 
-Clone the application using the command `git clone`. After that, enter the project folder using the command `cd tryunfo` and run the command `npm install`. After installation, use the command `npm start`.
+Clone the application using the `git clone` command. After that, enter the project folder using the command `cd tryunfo` and run the command `npm install`. After installation, use the `npm start` command.
 
 ###
