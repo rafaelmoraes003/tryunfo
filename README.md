@@ -1,12 +1,12 @@
-<h1 align="left">Projeto Tryunfo</h1>
+<h1 align="left">Tryunfo</h1>
 
 ###
 
-<p align="left">O objetivo deste projeto era criar o jogo Triunfo usando React. Por isso, precisei saber manipular estados e eventos, além de saber fazer uso de renderização condicional.<br><br>Ao descrever uma carta, ela aparece ao lado em forma de preview e, ao salvá-la ( isso só acontece se todos os campos estiverem preenchidos e o campo de atributos atender a um requisito mínimo e máximo de composição e soma ) a carta aparece criada logo abaixo.<br><br>Como a aplicação é baseado no Trunfo, um dos requisitos era ser possível ter APENAS 1 carta Super Trunfo.<br><br>Quando as cartas já estão salvas, é possível fazer um filtro de busca for nome, raridade e Super Trunfo; além disso, é possível também deletar cartas do baralho.</p>
+<p align="left">The goal of this project was to create the game Trunfo using React. For this reason, I needed to know how to handle states and events, in addition to knowing how to use conditional rendering.<br><br>When describing a card, it appears next to it in the form of a preview and, when saving it (this only happens if all fields are filled in and the attribute field meets a minimum and maximum requirement of composition and sum ) the card appears created just below.<br><br>As the application is based on Trump, one of the requirements was to be able to have ONLY 1 Super Trunfo card.<br><br>When the cards are already saved, it is possible to make a search filter by name, rarity and Super Trunfo; in addition, it is also possible to delete cards from the deck.</p>
 
 ###
 
-<h2 align="left">Tecnologias utilizadas</h2>
+<h2 align="left">Technologies used</h2>
 
 ###
 
@@ -17,10 +17,10 @@
 
 ###
 
-<h2 align="left">Como utilizar a aplicação</h2>
+<h2 align="left">How to use the application</h2>
 
 ###
 
-Faça o clone da aplicação usando o comando `git clone`. Após isso, entre na pasta do projeto utilizando o comando `cd tryunfo` e rode o comando `npm install`. Após a instalação, utilize o comando `npm start`.
+Clone the application using the command `git clone`. After that, enter the project folder using the command `cd tryunfo` and run the command `npm install`. After installation, use the command`npm start`.
 
 ###
